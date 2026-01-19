@@ -7823,6 +7823,7 @@
   function VoiceInspector() {
     const [voices, setVoices] = (0, import_react.useState)([]);
     const [loading, setLoading] = (0, import_react.useState)(true);
+    const [filter, setFilter] = (0, import_react.useState)("all");
     (0, import_react.useEffect)(() => {
       getVoices().then((voiceList) => {
         setVoices(formatVoiceData(voiceList));
@@ -7844,11 +7845,42 @@
     if (voices.length === 0) {
       return /* @__PURE__ */ import_react.default.createElement("div", { className: "intro-msg" }, /* @__PURE__ */ import_react.default.createElement("h2", null, "No voices available"), /* @__PURE__ */ import_react.default.createElement("p", null, "Your browser does not have any speech synthesis voices installed, or the Web Speech API is not supported."));
     }
-    const grouped = groupByLanguage(voices);
-    const sortedLanguages = Object.keys(grouped).sort();
     const localCount = voices.filter((v) => v.local).length;
     const remoteCount = voices.length - localCount;
-    return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("div", { className: "voice-section" }, /* @__PURE__ */ import_react.default.createElement("h2", null, "Summary", /* @__PURE__ */ import_react.default.createElement("span", { className: "anno" }, voices.length, " voice(s) available")), /* @__PURE__ */ import_react.default.createElement("p", null, /* @__PURE__ */ import_react.default.createElement("strong", null, localCount), " local voice(s),", " ", /* @__PURE__ */ import_react.default.createElement("strong", null, remoteCount), " remote voice(s) across", " ", /* @__PURE__ */ import_react.default.createElement("strong", null, sortedLanguages.length), " language(s)."), /* @__PURE__ */ import_react.default.createElement("button", { type: "button", onClick: downloadJson }, "Download as JSON")), /* @__PURE__ */ import_react.default.createElement("div", { className: "voice-section" }, /* @__PURE__ */ import_react.default.createElement("h2", null, "All Voices", /* @__PURE__ */ import_react.default.createElement("span", { className: "anno" }, "grouped by language")), sortedLanguages.map((lang) => /* @__PURE__ */ import_react.default.createElement("div", { key: lang, style: { marginBottom: "1.5em" } }, /* @__PURE__ */ import_react.default.createElement("h3", null, /* @__PURE__ */ import_react.default.createElement("code", null, lang), /* @__PURE__ */ import_react.default.createElement("span", { className: "anno" }, grouped[lang].length, " voice(s)")), /* @__PURE__ */ import_react.default.createElement("table", null, /* @__PURE__ */ import_react.default.createElement("thead", null, /* @__PURE__ */ import_react.default.createElement("tr", null, /* @__PURE__ */ import_react.default.createElement("th", null, "Name"), /* @__PURE__ */ import_react.default.createElement("th", null, "Local"))), /* @__PURE__ */ import_react.default.createElement("tbody", null, grouped[lang].map((voice, idx) => /* @__PURE__ */ import_react.default.createElement("tr", { key: idx }, /* @__PURE__ */ import_react.default.createElement("td", null, /* @__PURE__ */ import_react.default.createElement("code", null, voice.name)), /* @__PURE__ */ import_react.default.createElement("td", null, /* @__PURE__ */ import_react.default.createElement("code", null, voice.local ? "Yes" : "No"))))))))));
+    const filteredVoices = filter === "all" ? voices : filter === "local" ? voices.filter((v) => v.local) : voices.filter((v) => !v.local);
+    const grouped = groupByLanguage(filteredVoices);
+    const sortedLanguages = Object.keys(grouped).sort();
+    return /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("div", { className: "voice-section" }, /* @__PURE__ */ import_react.default.createElement("h2", null, "Summary", /* @__PURE__ */ import_react.default.createElement("span", { className: "anno" }, voices.length, " voice(s) available")), /* @__PURE__ */ import_react.default.createElement("p", null, /* @__PURE__ */ import_react.default.createElement("strong", null, localCount), " local voice(s),", " ", /* @__PURE__ */ import_react.default.createElement("strong", null, remoteCount), " remote voice(s) across", " ", /* @__PURE__ */ import_react.default.createElement("strong", null, sortedLanguages.length), " language(s)."), /* @__PURE__ */ import_react.default.createElement("button", { type: "button", onClick: downloadJson }, "Download as JSON")), /* @__PURE__ */ import_react.default.createElement("div", { className: "voice-section" }, /* @__PURE__ */ import_react.default.createElement("h2", null, "All Voices", /* @__PURE__ */ import_react.default.createElement("span", { className: "anno" }, "grouped by language")), /* @__PURE__ */ import_react.default.createElement("div", { className: "filter-buttons" }, /* @__PURE__ */ import_react.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: filter === "all" ? "active" : "",
+        onClick: () => setFilter("all")
+      },
+      "All (",
+      voices.length,
+      ")"
+    ), /* @__PURE__ */ import_react.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: filter === "local" ? "active" : "",
+        onClick: () => setFilter("local")
+      },
+      "Local (",
+      localCount,
+      ")"
+    ), /* @__PURE__ */ import_react.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: filter === "remote" ? "active" : "",
+        onClick: () => setFilter("remote")
+      },
+      "Remote (",
+      remoteCount,
+      ")"
+    )), sortedLanguages.map((lang) => /* @__PURE__ */ import_react.default.createElement("div", { key: lang, style: { marginBottom: "1.5em" } }, /* @__PURE__ */ import_react.default.createElement("h3", null, /* @__PURE__ */ import_react.default.createElement("code", null, lang), /* @__PURE__ */ import_react.default.createElement("span", { className: "anno" }, grouped[lang].length, " voice(s)")), /* @__PURE__ */ import_react.default.createElement("table", null, /* @__PURE__ */ import_react.default.createElement("thead", null, /* @__PURE__ */ import_react.default.createElement("tr", null, /* @__PURE__ */ import_react.default.createElement("th", null, "Name"), /* @__PURE__ */ import_react.default.createElement("th", null, "Local"))), /* @__PURE__ */ import_react.default.createElement("tbody", null, grouped[lang].map((voice, idx) => /* @__PURE__ */ import_react.default.createElement("tr", { key: idx }, /* @__PURE__ */ import_react.default.createElement("td", null, /* @__PURE__ */ import_react.default.createElement("code", null, voice.name)), /* @__PURE__ */ import_react.default.createElement("td", null, /* @__PURE__ */ import_react.default.createElement("code", null, voice.local ? "Yes" : "No"))))))))));
   }
   var app_el = document.getElementById("app");
   import_react_dom.default.render(/* @__PURE__ */ import_react.default.createElement(VoiceInspector, null), app_el);
