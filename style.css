@@ -120,6 +120,16 @@ td {
 	margin: 2em 0;
 }
 
+.filter-buttons {
+	display: flex;
+	gap: 0.5em;
+	margin-bottom: 1.5em;
+}
+
+.filter-buttons button.active {
+	background: #fe0;
+}
+
 td img {
 	max-width: 100%;
 }

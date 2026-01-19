@@ -41,6 +41,7 @@ const groupByLanguage = voices => {
 function VoiceInspector() {
 	const [voices, setVoices] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [filter, setFilter] = useState('all');
 
 	useEffect(() => {
 		getVoices().then(voiceList => {
@@ -77,10 +78,18 @@ function VoiceInspector() {
 		);
 	}
 
-	const grouped = groupByLanguage(voices);
-	const sortedLanguages = Object.keys(grouped).sort();
 	const localCount = voices.filter(v => v.local).length;
 	const remoteCount = voices.length - localCount;
+
+	const filteredVoices =
+		filter === 'all'
+			? voices
+			: filter === 'local'
+				? voices.filter(v => v.local)
+				: voices.filter(v => !v.local);
+
+	const grouped = groupByLanguage(filteredVoices);
+	const sortedLanguages = Object.keys(grouped).sort();
 
 	return (
 		<div>
@@ -106,6 +115,30 @@ function VoiceInspector() {
 					All Voices
 					<span className="anno">grouped by language</span>
 				</h2>
+
+				<div className="filter-buttons">
+					<button
+						type="button"
+						className={filter === 'all' ? 'active' : ''}
+						onClick={() => setFilter('all')}
+					>
+						All ({voices.length})
+					</button>
+					<button
+						type="button"
+						className={filter === 'local' ? 'active' : ''}
+						onClick={() => setFilter('local')}
+					>
+						Local ({localCount})
+					</button>
+					<button
+						type="button"
+						className={filter === 'remote' ? 'active' : ''}
+						onClick={() => setFilter('remote')}
+					>
+						Remote ({remoteCount})
+					</button>
+				</div>
 
 				{sortedLanguages.map(lang => (
 					<div key={lang} style={{ marginBottom: '1.5em' }}>
