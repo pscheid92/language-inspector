@@ -1,0 +1,193 @@
+html {
+	text-size-adjust: none;
+	-webkit-text-size-adjust: none;
+}
+
+body {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+		sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+	line-height: 1.5;
+	padding: 2rem;
+	margin: 1rem auto;
+	max-width: 64rem;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	min-height: -webkit-fill-available;
+	box-sizing: border-box;
+}
+
+input,
+select,
+textarea,
+button,
+[contenteditable] {
+	font: inherit;
+	font-size: max(1em, 16px);
+}
+
+button {
+	appearance: none;
+	border: 0.1em solid;
+	padding: 0.25em 0.5em;
+	background: #f3f3f3;
+	color: #000;
+	white-space: nowrap;
+	box-shadow: 0.1em 0.1em currentColor;
+}
+
+button:active {
+	background: #fe0;
+}
+
+[contenteditable] {
+	white-space: nowrap;
+	padding: 0.25em 0.5em;
+	border: 1px dotted;
+	background: #fff;
+}
+
+button[disabled] {
+	color: #777;
+	cursor: not-allowed;
+}
+
+footer {
+	margin-top: auto;
+	padding: 2em 0;
+	border-top: 1px solid;
+}
+
+a {
+	color: #006be4;
+}
+
+#app {
+	margin: 1em 0;
+}
+
+.mdn {
+	font-family: 'Source Code Pro', Consolas, monospace;
+}
+
+pre {
+	white-space: pre-wrap;
+}
+
+kbd,
+code,
+pre {
+	font-family: 'Source Code Pro', Consolas, monospace;
+	margin: 0;
+}
+
+kbd {
+	border-bottom: 1px dotted;
+}
+
+.anno {
+	font-size: 0.6em;
+	font-weight: bold;
+	display: inline-block;
+	margin: 0 1em;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+table table {
+	font-size: 0.9em;
+}
+
+tr {
+	border-bottom: 1px solid #aaa;
+}
+
+table table tr {
+	border: none;
+}
+
+th,
+td {
+	text-align: left;
+	vertical-align: top;
+	padding: 0.5em 0;
+}
+
+.voice-section {
+	margin: 2em 0;
+}
+
+td img {
+	max-width: 100%;
+}
+
+.intro-msg {
+	background: #fe0;
+	border: 0.15em solid;
+	padding: 1em 2em;
+}
+
+.intro-msg > * {
+	margin: 0;
+}
+
+.intro-msg h2 {
+	font-size: 1em;
+}
+
+.intro-msg ul {
+	padding: 0;
+}
+
+.intro-msg li {
+	margin: 0.5em 0;
+}
+
+h1 {
+	font-size: 2em;
+	line-height: 1.2;
+}
+
+@supports (width: max-content) {
+	h1 {
+		width: max-content;
+		border: 0.1em solid;
+		padding: 0.2em;
+		transform: rotate(-3deg);
+		background: #fe0;
+		box-shadow: 0.1em 0.1em currentColor;
+	}
+}
+
+h1 + p {
+	font-size: 1.4em;
+	max-width: 60ch;
+}
+
+.cb-entry {
+	padding: 0.5em;
+	background: #f3f3f3;
+	color: #444;
+	tab-size: 2;
+	-moz-tab-size: 2;
+	-webkit-tab-size: 2;
+	word-break: break-all;
+	margin: -0.5em 0;
+}
+
+.cb-copy {
+	padding: 0.5em 0.5em 0.5em 0;
+}
+
+@media (max-width: 60ch) {
+	html {
+		font-size: 90%;
+	}
+	body {
+		padding: 1rem;
+		margin: 0;
+	}
+}
